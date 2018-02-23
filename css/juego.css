@@ -1,0 +1,205 @@
+		body{
+			background-image: url("../img/estrellas.gif");
+			background-attachment: fixed;
+  			background-position: center center;
+ 			 background-size: cover;
+		}
+		#escenario{
+			width: 63em; 
+    		height: 37em; 
+    		border: 1px solid;
+    		margin: auto;
+    		background-image: url("../img/escenario.png");
+    		background-repeat: no-repeat;
+    		background-size: 63em 37em;
+    		position: relative;
+    		z-index: 0px;
+
+		}
+		.blocks{
+			margin-left: 10%;
+			margin-right: 10%;
+			margin-top: 50px;
+
+		}
+
+		.block{
+			display: inline-block;
+		}
+
+		.amarillo{
+			background-image: url("../img/amarillo.jpg");
+			background-size: 80px 40px;
+			height:40px;
+			width: 80px;
+			border-bottom: 0px;
+		}
+		.azul{
+			background-image: url("../img/azul.jpg");
+			background-size: 80px 40px;
+			height:40px;
+			width: 80px;
+			border-bottom: 0px;
+		}
+		.verde{
+			background-image: url("../img/verde.jpg");
+			background-size: 80px 40px;
+			height:40px;
+			width: 80px;
+			border-bottom: 0px;
+		}
+		.rojo{
+			background-image: url("../img/rojo.jpg");
+			background-size: 80px 40px;
+			height:40px;
+			width: 80px;
+			border-bottom: 0px;
+		}
+		.blanco{
+			height:40px;
+			width: 80px;
+			border-bottom: 0px;
+			visibility: hidden;
+		}
+
+
+		#jugador{
+			position: absolute;
+			bottom: 0;
+			margin-bottom: 20px;
+			left: 40%;
+			z-index: 0px;
+		}
+		#img_jugador{
+			height:40px;
+			width: 150px;
+			border-radius: 10px;
+		}
+		#bola{
+			position: absolute;
+			margin-bottom: 15px;
+			bottom: 0;
+			left: 40%;
+		}
+		#img_bola{
+			width: 33px;
+
+		}
+
+
+		#gameover{
+
+			margin:5%;
+			
+		}
+		
+		#img_gameover{
+			width: 900px;
+			margin-top: -10%;
+		}
+
+		#img_win{
+			width: 600px;
+			z-index: 1px;
+			margin-left: 17%;
+			margin-top: 20%;
+		}
+		#confetti{
+			
+			margin-top: -28%;
+		}
+		#img_confetti{
+			position: absolute;
+			background-size: 63em 39.4em;
+			width: 63em; 
+    		height: 39.4em; 
+
+		}
+		#start{
+			position: absolute;
+			z-index: 1px;
+			margin-left: 18%;
+
+			margin-top: 10%;
+		}
+
+		#img_start{
+			z-index: 1px;
+
+		}
+	
+
+
+		.flip-scale-up-hor {
+			-webkit-animation: flip-scale-up-hor 0.5s linear 1s reverse both;
+	        animation: flip-scale-up-hor 0.5s linear 1s reverse both;
+
+		}
+		@-webkit-keyframes flip-scale-up-hor {
+		  0% {
+		    -webkit-transform: scale(1) rotateX(0);
+		            transform: scale(1) rotateX(0);
+		  }
+		  50% {
+		    -webkit-transform: scale(2.5) rotateX(-90deg);
+		            transform: scale(2.5) rotateX(-90deg);
+		  }
+		  100% {
+		    -webkit-transform: scale(1) rotateX(-180deg);
+		            transform: scale(1) rotateX(-180deg);
+		  }
+		}
+		@keyframes flip-scale-up-hor {
+		  0% {
+		    -webkit-transform: scale(1) rotateX(0);
+		            transform: scale(1) rotateX(0);
+		  }
+		  50% {
+		    -webkit-transform: scale(2.5) rotateX(-90deg);
+		            transform: scale(2.5) rotateX(-90deg);
+		  }
+		  100% {
+		    -webkit-transform: scale(1) rotateX(-180deg);
+		            transform: scale(1) rotateX(-180deg);
+		  }
+		}
+
+
+
+
+
+		
+
+		@-moz-keyframes parpadeo{  
+			  0% { opacity: 1.0; }
+			  50% { opacity: 0.0; }
+			  100% { opacity: 1.0; }
+			}
+
+			@-webkit-keyframes parpadeo {  
+			  0% { opacity: 1.0; }
+			  50% { opacity: 0.0; }
+			   100% { opacity: 1.0; }
+			}
+
+			@keyframes parpadeo {  
+			  0% { opacity: 1.0; }
+			   50% { opacity: 0.0; }
+			  100% { opacity: 1.0; }
+			}
+		.parpadea {
+  
+			  animation-name: parpadeo;
+			  animation-duration: 2s;
+			  animation-timing-function: linear;
+			  animation-iteration-count: infinite;
+
+			  -webkit-animation-name:parpadeo;
+			  -webkit-animation-duration: 2s;
+			  -webkit-animation-timing-function: linear;
+			  -webkit-animation-iteration-count: infinite;
+
+
+		}
+
+		

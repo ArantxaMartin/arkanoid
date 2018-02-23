@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/juego.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<title>Juego</title>
+	
+</head>
+
+<body onkeydown="desplazar(event);">
+	
+	<div id="escenario"><audio src="./audio/arkanoid.mp3"  autoplay loop id="audio"></audio>
+		<div id="start"><img src="./img/pressStart.gif" id="img_start"></div>
+		<div class="blocks"></div>
+		<div id="bola" class="bola">
+			<img src="./img/bola.png" id="img_bola">
+		</div>
+		
+
+		<div id="jugador">
+			<img src="./img/jugador.jpg" id="img_jugador">
+		</div>
+		<div id="gameover"></div>
+		<div id="confetti"></div>
+
+
+	</div>
+	
+<script type="text/javascript">
+	
+var escenario=[
+			[{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)}],
+
+			[{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)}],
+
+			[{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)}],
+
+			[{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},{life:(Math.floor(Math.random()*4)+1)},
+			{life:(Math.floor(Math.random()*4)+1)}]
+
+		
+	];
+	
+	
+
+	for (var i = 0; i < escenario.length; i++) {
+		for (var j = 0; j < escenario[i].length; j++) {
+			if(escenario[i][j].life==4){
+				$('.blocks').append('<div id="block" class="rojo block"></div>');
+			}
+			if(escenario[i][j].life==3){
+				$('.blocks').append('<div id="block" class="azul block"></div>');
+			}
+			if(escenario[i][j].life==2){
+				$('.blocks').append('<div id="block" class="verde block"></div>');
+			}
+			if(escenario[i][j].life==1){
+				$('.blocks').append('<div id="block" class="amarillo block"></div>');
+			}
+			if(escenario[i][j].life==0){
+				$('.blocks').append('<div id="block" class="blanco block"></div>');
+			}
+			 
+		}
+		 
+	}
+
+	window.onload=function(){
+		document.onkeydown=desplazar;
+
+		var y=document.getElementById("escenario").offsetHeight-100;           
+        var x=(document.getElementById("escenario").offsetWidth-80)/2;
+		document.getElementById("bola").style.left=String(x)+"px";
+        document.getElementById("bola").style.top=String(y)+"px";
+	};
+    function desplazar(objeto){
+    var tecla = objeto.which;
+    
+        var X = document.getElementById("jugador").offsetLeft;
+        var derecha = document.getElementById("jugador").offsetLeft+150;
+
+        switch (tecla){
+            case 37 :   
+            	iniciar();
+            	$( "#audio" ).remove();
+	            if(X>35){
+	                jugador.style.left = X-10+"px" ; 
+	                break;
+	            }
+            case 39 :  
+            	iniciar();
+            	$( "#audio" ).remove();
+	            if(derecha<document.getElementById("escenario").offsetWidth-37){
+	        		jugador.style.left = X+10+"px" ;
+	        		break;
+	            }
+            case 32:
+            	iniciar();
+            	$( "#audio" ).remove();
+            	break;
+        }
+    }
+
+   /////////////////////////////mover bola/////////////////////////////
+       
+        var controlY=0;  
+        var controlX=0;  
+        var velocidad=3;
+        var intervalo=0;
+        var y=document.getElementById("escenario").offsetHeight-100;           
+        var x=(document.getElementById("escenario").offsetWidth-66)/2;
+
+        function iniciar(){
+
+        	if(intervalo==0){
+        		intervalo=setInterval("mover()",10);
+        	}
+        	$( "#start" ).remove();
+        	
+        }
+ 
+ 
+        function mover(){
+			DetectarColision();
+
+            if(controlY==1){
+                y+=velocidad;
+            }else{
+                y-=velocidad;
+            }
+
+            if(y<35){
+                controlY=1;
+                y=35;
+
+            }else if(y>=document.getElementById("jugador").offsetTop-25 && x>=document.getElementById("jugador").offsetLeft && x<=document.getElementById("jugador").offsetLeft+125){
+                controlY=0;
+            }else if(y>=document.getElementById("escenario").offsetHeight){
+            	gameOver();
+            }
+             
+
+            if(controlX==1){
+                x+=velocidad;
+            }else{
+                x-=velocidad;
+            }
+ 
+            if(x<11){
+                controlX=1;
+                x=11;
+            }else if(x>=document.getElementById("escenario").offsetWidth-50){
+                controlX=0;
+                x=document.getElementById("escenario").offsetWidth-50;
+            }
+            
+            document.getElementById("bola").style.left=String(x)+"px";
+            document.getElementById("bola").style.top=String(y)+"px";
+        }
+ /////////////////////////////COLISION////////////////////////////////////////
+      var contador=0;
+		function DetectarColision(){
+
+			$('.block').each(function(){
+				
+				var limites=this.getBoundingClientRect();
+				var bolaLimites=document.getElementById('bola').getBoundingClientRect();
+				if(limites.left<=bolaLimites.left && limites.right >= bolaLimites.right && limites.bottom >= bolaLimites.top && limites.top <= bolaLimites.bottom){
+					
+					if($(this).hasClass('amarillo block')){
+
+						$(this).removeClass('amarillo block');
+						$(this).addClass('blanco block');
+						$(this).append('<audio src="./audio/choquebola2.mp3"  autoplay></audio>');
+						contador++;
+						if(controlY==0){controlY=1;}else{controlY=0;}
+						if(controlX==1){controlX=1;}else{controlX=0;}
+						youWin();
+					}
+
+					if($(this).hasClass('verde block')){
+
+						$(this).removeClass('verde block');
+						$(this).addClass('amarillo block');
+						$(this).append('<audio src="./audio/choquebola2.mp3"  autoplay></audio>');
+						if(controlY==0){controlY=1;}else{controlY=0;}
+						if(controlX==1){controlX=1;}else{controlX=0;}
+					}
+
+					if($(this).hasClass('azul block')){
+
+						$(this).removeClass('azul block');
+						$(this).addClass('verde block');
+						$(this).append('<audio src="./audio/choquebola2.mp3"  autoplay></audio>');
+						if(controlY==0){controlY=1;}else{controlY=0;}
+						if(controlX==1){controlX=1;}else{controlX=0;}    
+
+					}
+
+ 					if($(this).hasClass('rojo block')){
+						$(this).removeClass('rojo block');
+						$(this).addClass('azul block');
+
+						$(this).append('<audio src="./audio/choquebola2.mp3"  autoplay></audio>');
+						if(controlY==0){controlY=1;}else{controlY=0;}
+						if(controlX==1){controlX=1;}else{controlX=0;}
+						
+					}
+
+				}
+			});
+
+		 
+		}
+
+     ////////////////////////////WIN////////////////////////////////
+     	function youWin(){
+     		if(contador==40){
+     			clearInterval(intervalo);
+     			$( "#audio" ).remove();
+     			$('#confetti').append('<img src="./img/confetti.gif" id="img_confetti" ><div id="win"><img src="./img/win.png" id="img_win" class="flip-scale-up-hor"><audio src="./audio/win00.mp3"  autoplay></audio></div>');
+     			document.onkeydown = function (objeto){
+			        var teclado = objeto.which;
+			        switch (teclado){
+			            
+			            case 37:
+			            intervalo=0;
+			            window.location.reload(); 
+			            break;
+
+			            case 39:
+			            intervalo=0;
+			            window.location.reload(); 
+			            break;
+
+			            case 32:
+			            intervalo=0;
+			            window.location.reload(); 
+			            break;
+			        }
+			    }
+     		}
+     	}
+
+	//////////////////////////////GAME OVER////////////////////////////////
+			
+			function gameOver(){
+	
+				clearInterval(intervalo);
+				$('#gameover').append('<img src="./img/gameover.png" id="img_gameover" class="parpadea"><audio src="./audio/lose.mp3"  autoplay></audio>');
+
+				document.onkeydown = function (objeto){
+			        var teclado = objeto.which;
+			        switch (teclado){
+			            case 37:
+			            intervalo=0;
+			            window.location.reload(); 
+			            break;
+
+			            case 39:
+			            intervalo=0;
+			            window.location.reload(); 
+			            break;
+
+			            case 32:
+			            intervalo=0;
+			            window.location.reload(); 
+			            break;
+			        }
+			    }
+			}
+</script>
+
+</body>
+</html>
